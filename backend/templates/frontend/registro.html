@@ -1,0 +1,29 @@
+<form method="POST" action="{% url 'cadastrar_usuario' %}">
+  {% csrf_token %}
+  
+  <label for="nome">Nome:</label>
+  <input type="text" name="nome" id="nome" required>
+
+  <label for="cpf">CPF:</label>
+  <input type="text" name="cpf" id="cpf" required>
+
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required>
+
+  <label for="pulseira_id">ID da Pulseira:</label>
+  <input type="text" name="pulseira_id" id="pulseira_id" required>
+
+  <label for="tipo_ingresso">Tipo de Ingresso:</label>
+  <select name="tipo_ingresso" id="tipo_ingresso" required>
+    <option value="pista">Pista</option>
+    <option value="camarote">Camarote</option>
+  </select>
+
+  <label for="pagamento_confirmado">Pagamento Confirmado:</label>
+  <select name="pagamento_confirmado" id="pagamento_confirmado" required>
+    <option value="True">Sim</option>
+    <option value="False">Não</option>
+  </select>
+
+  <button type="submit">Cadastrar</button>
+</form>
