@@ -19,12 +19,13 @@ from django.urls import path, include
 from eventos import urls as eventos_urls
 from usuarios import urls as usuarios_urls
 from eventos import views
-from .view import pagina_principal, mapa
+from .view import pagina_principal, mapa, programacao
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', pagina_principal),
     path('api/', include(eventos_urls)),
-    path('mapa/', mapa, name = 'mapa')
+    path('mapa/', mapa, name = 'mapa'),
+    path('programacao/', programacao, name = 'programacao')
     # path('api/usuarios/', include(usuarios_urls))
 ]

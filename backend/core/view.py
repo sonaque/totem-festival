@@ -5,4 +5,7 @@ def mapa(request):
 
 def pagina_principal(request):
     return render(request, 'frontend/pagina_principal.html')
+
+def programacao(request):
+    return render(request, 'frontend/programacao.html')
     
