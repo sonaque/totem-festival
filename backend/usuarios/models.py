@@ -3,7 +3,7 @@ from django.db import models
 class Usuario(models.Model):
     TIPO_INGRESSO_CHOICES = [
         ('pista', 'Pista'),
-        ('camarote', 'Camarote'),
+        ('vip', 'Vip'),
     ]
 
     nome = models.CharField(max_length=100)

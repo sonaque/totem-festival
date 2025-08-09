@@ -1,21 +1,28 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from django.shortcuts import render, redirect
 from .models import Usuario
-from .serializers import UsuarioSerializer
-
-class UsuarioCreateView(APIView):
-    def post(self, request):
-
-        print(" Dados recebidos via POST:", request.data)
-        
-        serializer = UsuarioSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+import uuid
+from datetime import datetime
 
 def mostrar_registro(request):
-    return render(request, 'frontend/registro.html')
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        cpf = request.POST.get('cpf')
+        email = request.POST.get('email')
+        tipo_ingresso = request.POST.get('tipo_ingresso')
 
+        pulseira_id = str(uuid.uuid4())  # Gera ID único
+        pagamento_confirmado = True  # ou False, dependendo da lógica
+
+        Usuario.objects.create(
+            nome=nome,
+            cpf=cpf,
+            email=email,
+            tipo_ingresso=tipo_ingresso,
+            pulseira_id=pulseira_id,
+            pagamento_confirmado=pagamento_confirmado,
+            data_chegada = datetime.now.time()
+        )
+
+        return redirect('registro_sucesso')  # ou renderizar uma página de confirmação
+
+    return render(request, 'frontend/registro.html')

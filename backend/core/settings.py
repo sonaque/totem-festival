@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,8 @@ SECRET_KEY = 'django-insecure-*#ca+419qxu#jr0&-y0ul!=b^&48c5c(k(!9!89()2beu()2z^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'eventos',
     'rest_framework',
     'usuarios',
+    'ingressos',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +126,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+ABACATEPAY_API_KEY = 'abc_dev_SnWxtNmxaDJNzTxaqLEdbrNm'
+
+# URL pública do seu webhook (usando ngrok ou hospedagem real)
+ABACATEPAY_WEBHOOK_URL = 'https://seusite.com/pagamentos/webhook/'
+
+# Se estiver em desenvolvimento, pode usar ngrok temporariamente:
+# ABACATEPAY_WEBHOOK_URL = 'https://abc123.ngrok.io/pagamentos/webhook/'
 
 
 # Default primary key field type

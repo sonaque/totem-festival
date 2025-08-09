@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingressos - Festival</title>
+  <link href="https://fonts.cdnfonts.com/css/gagalin" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+      padding: 20px;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      min-height: 100vh;
+      border-radius: 10px;
+    }
+
+    .sidebar img {
+      display: block;
+      margin: 0 auto;
+      width: 90px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #ff00ff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .conteudo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Gagalin', sans-serif;
+      font-size: 3em;
+      color: #ff00ff;
+      margin-bottom: 30px;
+    }
+
+    .categoria {
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .categoria h2 {
+      font-size: 2em;
+      color: #ff00ff;
+      margin-bottom: 15px;
+    }
+
+    .descricao {
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .botao {
+      display: inline-block;
+      background-color: #ff00ff;
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .botao:hover {
+      background-color: #cc00cc;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+      }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        min-height: auto;
+        padding: 10px;
+      }
+      .conteudo {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a href="..">
+      <img src="{% static 'img/inicio.png' %}" alt="Início">
+      Início
+    </a>
+  </div>
+
+  <div class="conteudo">
+    <h1>INGRESSOS</h1>
+
+    <div class="categoria">
+      <h2>PISTA</h2>
+      <p class="descricao">
+        Garanta seu lugar na pista e viva a experiência do show bem de perto.
+        Sinta a energia da multidão, cante junto, pule, dance e aproveite cada
+        momento de frente para o palco. Área sem assento – fique livre para curtir do seu jeito!
+         Ideal para quem quer estar no meio da vibração!
+      </p>
+      <a href="cadastro/" class="botao">COMPRAR<br>R$ 120,00</a>
+    </div>
+
+    <div class="categoria">
+      <h2>ÁREA VIP</h2>
+      <p class="descricao">
+        Viva o show com conforto e exclusividade! A Área VIP oferece uma experiência diferenciada,
+        com visão privilegiada do palco, mais espaço e comodidades especiais para você curtir cada momento com estilo.
+         Acesso a bares ou serviços exclusivos*  Posição estratégica para aproveitar o show com mais tranquilidade.
+      </p>
+      <a href="cadastro/" class="botao">COMPRAR<br>R$ 240,00</a>
+    </div>
+  </div>
+</body>
+</html>
