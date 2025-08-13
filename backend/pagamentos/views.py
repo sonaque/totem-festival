@@ -135,9 +135,9 @@ def confirmar_pagamento(request):
 # configura registro, arruma dps
 # def login_totem(request):
 #     if request.method == 'POST':
-#         cpf = request.POST['cpf']
+#         codigo_pulseira = request.POST['codigo_pulseira']
 #         try:
-#             ingresso = Ingresso.objects.get(cpf=cpf, status_pagamento='pago')
+#             ingresso = Ingresso.objects.get(codigo_pulseira=codigo_pulseira, status_pagamento='pago')
 #             return render(request, 'totem/logado.html', {'ingresso': ingresso})
 #         except Ingresso.DoesNotExist:
 #             return HttpResponse("Ingresso não encontrado ou não pago", status=403)

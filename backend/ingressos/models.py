@@ -2,7 +2,7 @@ from django.db import models
 
 class Ingresso(models.Model):
     nome_cliente = models.CharField(max_length=100)
-    cpf = models.CharField(max_length=14)  
+    cpf = models.CharField(max_length=14, unique=True)  
     email = models.EmailField(blank=True, null=True)  
     telefone = models.CharField(max_length=20, blank=True, null=True)  
     tipo_ingresso = models.CharField(max_length=50)
