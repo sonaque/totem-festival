@@ -61,7 +61,7 @@ def iniciar_pagamento(request):
         }
 
         headers = {
-            "Authorization": "Bearer abc_dev_SnWxtNmxaDJNzTxaqLEdbrNm",
+            "Authorization": f"Bearer {settings.ABACATEPAY_API_KEY}",
             "Content-Type": "application/json"
         }
 

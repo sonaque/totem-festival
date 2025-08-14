@@ -127,7 +127,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-ABACATEPAY_API_KEY = 'abc_dev_SnWxtNmxaDJNzTxaqLEdbrNm'
+ABACATEPAY_API_KEY = config("ABACATEPAY_API_KEY")
 
 # URL pública do seu webhook (usando ngrok ou hospedagem real)
 ABACATEPAY_WEBHOOK_URL = 'https://seusite.com/pagamentos/webhook/'
@@ -151,5 +151,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'totemfestival1@gmail.com'
-EMAIL_HOST_PASSWORD = 'Teste12.'
+EMAIL_HOST_USER = config("email_user")
+EMAIL_HOST_PASSWORD = config("email_password")
