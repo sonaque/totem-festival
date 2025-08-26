@@ -1,28 +1,21 @@
 from django.shortcuts import render, redirect
-from .models import Usuario
-import uuid
-from datetime import datetime
+from ingressos.models import Ingresso
 
-def mostrar_registro(request):
+def registrar_pulseira(request):
     if request.method == 'POST':
-        nome = request.POST.get('nome')
         cpf = request.POST.get('cpf')
-        email = request.POST.get('email')
-        tipo_ingresso = request.POST.get('tipo_ingresso')
+        codigo_pulseira = request.POST.get('id_pulseira')
 
-        pulseira_id = str(uuid.uuid4())  # Gera ID único
-        pagamento_confirmado = True  # ou False, dependendo da lógica
+        try:
+            ingresso = Ingresso.objects.get(cpf=cpf, codigo_pulseira=codigo_pulseira, status_pagamento='pago')
+            request.session['usuario_id'] = ingresso.id  # SALVA NA SESSÃO
+            return redirect('pagina_principal')  # Redireciona para o bar
+        except Ingresso.DoesNotExist:
+            return render(request, 'frontend/registrar.html', {
+                'erro': 'Dados não encontrados ou pagamento não confirmado.'
+            })
 
-        Usuario.objects.create(
-            nome=nome,
-            cpf=cpf,
-            email=email,
-            tipo_ingresso=tipo_ingresso,
-            pulseira_id=pulseira_id,
-            pagamento_confirmado=pagamento_confirmado,
-            data_chegada = datetime.now.time()
-        )
+    # Requisição GET: só exibe o formulário
+    return render(request, 'frontend/registrar.html')
 
-        return redirect('registro_sucesso')  # ou renderizar uma página de confirmação
 
-    return render(request, 'frontend/registro.html')

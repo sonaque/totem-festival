@@ -9,6 +9,9 @@ def pagina_principal(request):
 def programacao(request):
     return render(request, 'frontend/programacao.html')
 
+def bar(request):
+    return render(request, 'frontend/bar.html')
+
 
 
     

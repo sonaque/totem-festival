@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 import abacatepay
 from django.http import HttpResponse
 from django.conf import settings
@@ -12,6 +11,7 @@ from django.core.mail import send_mail
 import json
 import random 
 import string
+from bar.models import Produto, Pedido
 
 abacatepay.api_key = settings.ABACATEPAY_API_KEY
 
@@ -50,8 +50,8 @@ def iniciar_pagamento(request):
                     "description": descricao
                 }
             ],
-            "returnUrl": "https://520a751cd2f1.ngrok-free.app/ingressos/cadastro/",
-            "completionUrl": "https://520a751cd2f1.ngrok-free.app/",
+            "returnUrl": f"https://{settings.NGROK_URL}/ingressos/cadastro/",
+            "completionUrl": f"https://{settings.NGROK_URL}/",
             "customer": {
                 "name": nome,
                 "cellphone": telefone,  
@@ -133,7 +133,8 @@ def confirmar_pagamento(request):
 
 
 # configura registro, arruma dps
-# def login_totem(request):
+# def login_totem(request):.
+
 #     if request.method == 'POST':
 #         codigo_pulseira = request.POST['codigo_pulseira']
 #         try:
@@ -141,3 +142,56 @@ def confirmar_pagamento(request):
 #             return render(request, 'totem/logado.html', {'ingresso': ingresso})
 #         except Ingresso.DoesNotExist:
 #             return HttpResponse("Ingresso não encontrado ou não pago", status=403)
+
+
+# from ingressos.models import Ingresso  # ou o model que representa o visitante000
+
+def iniciar_pagamento_produto(request, produto_id):
+    if not request.session.get('usuario_id'):
+        print("Sessão ativa:", request.session.get('usuario_id'))
+        return HttpResponse("Você precisa estar registrado para comprar.", status=403)
+
+
+    # usuario = Usuario.objects.get(id=request.session['usuario_id'])
+    usuario = Ingresso.objects.get(id=request.session['usuario_id'])
+    produto = Produto.objects.get(id=produto_id)
+
+    payload = {
+        "frequency": "ONE_TIME",
+        "methods": ["PIX"],
+        "products": [{
+            "name": produto.nome,
+            "quantity": 1,
+            "externalId": f"produto_{produto.id}",
+            "price": produto.preco * 100,
+            "description": produto.descricao
+        }],
+        "returnUrl": f"https://{settings.NGROK_URL}/bar/",
+        "completionUrl": f"https://{settings.NGROK_URL}/",
+        "customer": {
+            "name": usuario.nome_cliente,
+            "cellphone": usuario.telefone,
+            "email": usuario.email,
+            "taxId": usuario.cpf
+        }
+    }
+
+    headers = {
+        "Authorization": f"Bearer {settings.ABACATEPAY_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post("https://api.abacatepay.com/v1/billing/create", json=payload, headers=headers)
+
+    if response.status_code == 200:
+        dados = response.json()["data"]
+        # Salvar pedido no banco, associando ao usuário
+        Pedido.objects.create(
+            usuario=usuario,
+            produto=produto,
+            id_cobranca=dados["id"],
+            status_pagamento="pendente"
+        )
+        return redirect(dados["url"])###
+    else:
+        return HttpResponse("Erro ao iniciar pagamento", status=400)
