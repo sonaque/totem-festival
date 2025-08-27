@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  min-height: 100vh;
+  border-radius: 10px;
+}
+
+.sidebar img {
+  display: block;
+  margin: 0 auto;
+  width: 90px;
+}
+
+.sidebar a {
+  display: block;
+  color: #ff00ff;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.conteudo {
+  flex: 1;
+}
+
+.titulo {
+  font-size: 2.5em;
+  font-family: 'Gagalin', sans-serif;
+  color: #ff00ff;
+  margin-bottom: 30px;
+}
+
+.categoria {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.cardapio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #111;
+  border-left: 5px solid #ff00ff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.nome {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #ff00ff;
+  margin-bottom: 8px;
+}
+
+.descricao {
+  font-size: 0.95em;
+  color: #bbb;
+  margin-bottom: 5px;
+}
+
+.preco {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    min-height: auto;
+    padding: 10px;
+  }
+
+  .conteudo {
+    margin-top: 20px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item img {
+    width: 100%;
+    height: 200px;
+  }
+}

@@ -8,6 +8,4 @@ def ingressos1(request):
 def cadastro(request):
     return render(request,'frontend/cadastro.html')
 
-# def ingressos_vip_1(request):
-#     return render(request,'frontend/ingressos_vip_1.html')
 

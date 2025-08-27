@@ -26,7 +26,7 @@ def iniciar_pagamento(request):
         tipo = request.POST['tipo_ingresso']
         telefone = request.POST['telefone']
 
-        # Definir produto e preço
+        
         if tipo == 'pista':
             produto_nome = 'ingresso_pista'
             preco = 12000
@@ -132,20 +132,6 @@ def confirmar_pagamento(request):
 
 
 
-# configura registro, arruma dps
-# def login_totem(request):.
-
-#     if request.method == 'POST':
-#         codigo_pulseira = request.POST['codigo_pulseira']
-#         try:
-#             ingresso = Ingresso.objects.get(codigo_pulseira=codigo_pulseira, status_pagamento='pago')
-#             return render(request, 'totem/logado.html', {'ingresso': ingresso})
-#         except Ingresso.DoesNotExist:
-#             return HttpResponse("Ingresso não encontrado ou não pago", status=403)
-
-
-# from ingressos.models import Ingresso  # ou o model que representa o visitante000
-
 def iniciar_pagamento_produto(request, produto_id):
     if not request.session.get('usuario_id'):
         print("Sessão ativa:", request.session.get('usuario_id'))
@@ -185,7 +171,7 @@ def iniciar_pagamento_produto(request, produto_id):
 
     if response.status_code == 200:
         dados = response.json()["data"]
-        # Salvar pedido no banco, associando ao usuário
+        
         Pedido.objects.create(
             usuario=usuario,
             produto=produto,
